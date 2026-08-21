@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nova Market</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f7f7f5;color:#111}
+header{background:#111;color:#fff;padding:18px 6%;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:5}
+.logo{font-size:24px;font-weight:800}.cart{background:#fff;color:#111;border:0;border-radius:22px;padding:10px 16px;font-weight:700;cursor:pointer}
+.hero{padding:70px 6%;background:linear-gradient(120deg,#e9e2ff,#fff 55%,#dff8f1);display:flex;justify-content:space-between;align-items:center;gap:30px}
+.hero h1{font-size:clamp(42px,7vw,78px);margin:0 0 15px}.hero p{font-size:19px;max-width:520px;color:#555}
+.btn{display:inline-block;background:#111;color:#fff;padding:14px 22px;border-radius:28px;text-decoration:none;font-weight:700;margin-top:12px}
+.products{padding:45px 6%}.products h2{font-size:34px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:22px}
+.card{background:#fff;border-radius:20px;padding:14px;box-shadow:0 5px 20px #0000000d}
+.pic{height:210px;border-radius:15px;display:grid;place-items:center;font-size:70px;background:#eee}
+.card h3{margin:15px 4px 5px}.price{font-weight:800;margin:0 4px}.add{width:100%;margin-top:12px;border:0;background:#111;color:#fff;padding:12px;border-radius:12px;cursor:pointer}
+footer{background:#111;color:#fff;padding:35px 6%;text-align:center}
+#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#111;color:#fff;padding:12px 18px;border-radius:25px;display:none}
+</style>
+</head>
+<body>
+<header><div class="logo">NOVA MARKET ✦</div><button class="cart" onclick="showCart()">Cart (<span id="count">0</span>)</button></header>
+<section class="hero">
+<div><p>DISCOVER SOMETHING NEW</p><h1>Small things.<br>Big vibes.</h1><p>Trendy accessories, gadgets, stationery and gifts — all in one place.</p><a class="btn" href="#shop">Shop now →</a></div>
+<div style="font-size:150px">🛍️</div>
+</section>
+<section class="products" id="shop">
+<h2>Popular picks</h2>
+<div class="grid" id="grid"></div>
+</section>
+<footer><strong>NOVA MARKET</strong><p>Made for curious people. © 2026 Nova Market</p></footer>
+<div id="toast"></div>
+<script>
+const products=[
+["Cloud Lamp","R399","☁️"],["Mini Speaker","R549","🔊"],["Sticker Pack","R99","✨"],["Desk Buddy","R249","🪴"],
+["Phone Charm","R129","📱"],["Travel Mug","R299","🥤"],["Mystery Gift","R199","🎁"],["Notebook Set","R179","📓"]
+];
+let count=0;
+const grid=document.getElementById("grid");
+products.forEach((p,i)=>{
+grid.innerHTML+=`<article class="card"><div class="pic">${p[2]}</div><h3>${p[0]}</h3><p class="price">${p[1]}</p><button class="add" onclick="add(${i})">Add to cart</button></article>`;
+});
+function add(i){count++;document.getElementById("count").textContent=count;toast(products[i][0]+" added to cart");}
+function toast(t){const x=document.getElementById("toast");x.textContent=t;x.style.display="block";setTimeout(()=>x.style.display="none",1800)}
+function showCart(){toast(count?`You have ${count} item${count>1?"s":""} in your cart`:"Your cart is empty");}
+</script>
+</body>
+</html>
